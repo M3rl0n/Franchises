@@ -2,7 +2,7 @@ package com.tp.franchises.api.dtos;
 
 import java.util.List;
 
-import com.tp.franchises.franchise.model.Branch;
+import com.tp.franchises.branch.model.Branch;
 import com.tp.franchises.franchise.model.Franchise;
 
 public record FranchiseDetailResponse(Long id, String name, List<BranchDetail> branches) {
