@@ -8,4 +8,6 @@ public interface FranchiseRepository extends JpaRepository<Franchise, Long> {
 
 	boolean existsByName(String name);
 
+	boolean existsByNameAndIdNot(String name, Long id);
+
 }

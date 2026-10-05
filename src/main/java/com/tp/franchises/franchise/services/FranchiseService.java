@@ -13,6 +13,6 @@ public interface FranchiseService {
 
 	FranchiseDetailResponse findById(Long id);
 
-	void updateName(Long id, String name);
+	void updateFranchise(Long id, String name);
 
 }
