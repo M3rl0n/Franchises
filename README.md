@@ -20,3 +20,12 @@ Para detenerlo, presiona `Ctrl + C` en la terminal donde está corriendo, o ejec
 docker compose down      # detiene y elimina los contenedores, conserva los datos
 docker compose down -v   # además borra los datos de MySQL
 ```
+
+## Documentación de la API
+
+Con la aplicación en ejecución, la documentación interactiva de todos los endpoints está disponible en Swagger UI:
+
+- Swagger UI: `http://localhost:8080/swagger-ui.html`
+- Especificación OpenAPI (JSON): `http://localhost:8080/v3/api-docs`
+
+Cada endpoint muestra su descripción, el cuerpo esperado con un ejemplo, los posibles errores y el formato de respuesta. Con el botón **Try it out** se puede probar directamente desde el navegador.
