@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tp.franchises.franchise.model.Franchise;
-import com.tp.franchises.franchise.model.Product;
+import com.tp.franchises.product.model.Product;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

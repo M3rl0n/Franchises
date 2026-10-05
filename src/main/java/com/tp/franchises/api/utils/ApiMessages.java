@@ -6,6 +6,7 @@ public final class ApiMessages {
 	public static final String CREATED = "Creado exitosamente";
 	public static final String UPDATED = "Actualizado exitosamente";
 	public static final String FOUND = "Consulta exitosa";
+	public static final String DELETED = "Eliminado exitosamente";
 
 	// Validación de campos
 	public static final String NAME_REQUIRED = "El nombre es obligatorio";
@@ -30,6 +31,10 @@ public final class ApiMessages {
 	// Sucursales
 	public static final String BRANCH_NOT_FOUND = "No se encontró la sucursal con id %d";
 	public static final String BRANCH_ALREADY_EXISTS = "La sucursal '%s' ya existe en la franquicia";
+
+	// Productos
+	public static final String PRODUCT_NOT_FOUND = "No se encontró el producto con id %d";
+	public static final String PRODUCT_ALREADY_EXISTS = "El producto '%s' ya existe en la sucursal";
 
 	private ApiMessages() {
 	}
