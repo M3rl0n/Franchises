@@ -29,3 +29,13 @@ Con la aplicación en ejecución, la documentación interactiva de todos los end
 - Especificación OpenAPI (JSON): `http://localhost:8080/v3/api-docs`
 
 Cada endpoint muestra su descripción, el cuerpo esperado con un ejemplo, los posibles errores y el formato de respuesta. Con el botón **Try it out** se puede probar directamente desde el navegador.
+
+## Pruebas
+
+Requisito: Java 17. No se necesita MySQL ni Docker: los tests usan una base H2 en memoria.
+
+```bash
+./mvnw verify
+```
+
+Ejecuta todos los tests y verifica que la cobertura de líneas y ramas sea del 100 %; si baja, el build falla. El reporte de cobertura queda en `target/site/jacoco/index.html`.
