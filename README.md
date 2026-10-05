@@ -10,7 +10,7 @@ docker compose up --build
 ```
 
 - API: `http://localhost:8080`
-- MySQL: `localhost:3307` (base `franchises`, usuario `franchises`, contraseña `franchises`)
+- MySQL: `localhost:3307`
 
 La primera ejecución descarga las imágenes y tarda unos minutos. La app espera a que MySQL esté listo antes de arrancar, y las tablas se crean automáticamente.
 
