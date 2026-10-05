@@ -3,6 +3,8 @@ package com.tp.franchises.franchise.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tp.franchises.branch.model.Branch;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

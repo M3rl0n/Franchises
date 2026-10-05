@@ -17,8 +17,8 @@ import com.tp.franchises.api.dtos.FranchiseDetailResponse;
 import com.tp.franchises.api.dtos.FranchiseResponse;
 import com.tp.franchises.api.dtos.NameRequest;
 import com.tp.franchises.api.response.ApiResponse;
+import com.tp.franchises.api.utils.ApiMessages;
 import com.tp.franchises.franchise.services.FranchiseService;
-import com.tp.franchises.franchise.utils.FranchiseMessages;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,23 +37,23 @@ public class FranchiseController {
 			.path("/{id}")
 			.buildAndExpand(created.id())
 			.toUri();
-		return ApiResponse.created(location, FranchiseMessages.CREATED);
+		return ApiResponse.created(location, ApiMessages.CREATED);
 	}
 
 	@GetMapping
 	public ResponseEntity<ApiResponse<List<FranchiseResponse>>> findAll() {
-		return ApiResponse.ok(FranchiseMessages.FOUND_ALL, franchiseService.findAll());
+		return ApiResponse.ok(ApiMessages.FOUND, franchiseService.findAll());
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<ApiResponse<FranchiseDetailResponse>> findById(@PathVariable Long id) {
-		return ApiResponse.ok(FranchiseMessages.FOUND, franchiseService.findById(id));
+		return ApiResponse.ok(ApiMessages.FOUND, franchiseService.findById(id));
 	}
 
 	@PatchMapping ("/{id}")
-	public ResponseEntity<ApiResponse<Void>> updateName(@PathVariable Long id, @Valid @RequestBody NameRequest request) {
-		franchiseService.updateName(id, request.name());
-		return ApiResponse.ok(FranchiseMessages.UPDATED);
+	public ResponseEntity<ApiResponse<Void>> updateFranchise(@PathVariable Long id, @Valid @RequestBody NameRequest request) {
+		franchiseService.updateFranchise(id, request.name());
+		return ApiResponse.ok(ApiMessages.UPDATED);
 	}
 
 }

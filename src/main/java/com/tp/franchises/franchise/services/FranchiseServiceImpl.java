@@ -9,9 +9,9 @@ import com.tp.franchises.api.dtos.FranchiseDetailResponse;
 import com.tp.franchises.api.dtos.FranchiseResponse;
 import com.tp.franchises.api.exceptions.DuplicateResourceException;
 import com.tp.franchises.api.exceptions.ResourceNotFoundException;
+import com.tp.franchises.api.utils.ApiMessages;
 import com.tp.franchises.franchise.model.Franchise;
 import com.tp.franchises.franchise.repository.FranchiseRepository;
-import com.tp.franchises.franchise.utils.FranchiseMessages;
 
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +26,7 @@ public class FranchiseServiceImpl implements FranchiseService {
 	public FranchiseResponse create(String name) {
 		String trimmedName = name.trim();
 		if (franchiseRepository.existsByName(trimmedName)) {
-			throw new DuplicateResourceException(FranchiseMessages.ALREADY_EXISTS.formatted(trimmedName));
+			throw new DuplicateResourceException(ApiMessages.FRANCHISE_ALREADY_EXISTS.formatted(trimmedName));
 		}
 		return FranchiseResponse.from(franchiseRepository.save(new Franchise(trimmedName)));
 	}
@@ -45,17 +45,17 @@ public class FranchiseServiceImpl implements FranchiseService {
 
 	@Override
 	@Transactional
-	public void updateName(Long id, String name) {
+	public void updateFranchise(Long id, String name) {
 		Franchise franchise = getFranchise(id);
 		String trimmedName = name.trim();
-		if (!franchise.getName().equals(trimmedName) && franchiseRepository.existsByName(trimmedName)) {
-			throw new DuplicateResourceException(FranchiseMessages.ALREADY_EXISTS.formatted(trimmedName));
+		if (franchiseRepository.existsByNameAndIdNot(trimmedName, id)) {
+			throw new DuplicateResourceException(ApiMessages.FRANCHISE_ALREADY_EXISTS.formatted(trimmedName));
 		}
 		franchise.setName(trimmedName);
 	}
 
 	private Franchise getFranchise(Long id) {
-		return franchiseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(FranchiseMessages.NOT_FOUND.formatted(id)));
+		return franchiseRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(ApiMessages.FRANCHISE_NOT_FOUND.formatted(id)));
 	}
 
 }

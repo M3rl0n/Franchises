@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.tp.franchises.api.response.ApiResponse;
+import com.tp.franchises.api.utils.ApiMessages;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,14 +32,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	public ResponseEntity<ApiResponse<Void>> handleDataIntegrity(DataIntegrityViolationException ex) {
 		return ResponseEntity.status(HttpStatus.CONFLICT)
-			.body(ApiResponse.error(HttpStatus.CONFLICT, "La solicitud entra en conflicto con datos existentes"));
+			.body(ApiResponse.error(HttpStatus.CONFLICT, ApiMessages.DATA_CONFLICT));
 	}
 
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ApiResponse<Void>> handleUnexpected(Exception ex) {
 		log.error("Error no controlado", ex);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-			.body(ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, "Ocurrió un error inesperado"));
+			.body(ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR, ApiMessages.UNEXPECTED_ERROR));
 	}
 
 	@Override
@@ -48,7 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 		for (FieldError error : ex.getBindingResult().getFieldErrors()) {
 			errors.putIfAbsent(error.getField(), error.getDefaultMessage());
 		}
-		ApiResponse<Void> body = ApiResponse.error(status, "La solicitud tiene campos inválidos", errors);
+		ApiResponse<Void> body = ApiResponse.error(status, ApiMessages.VALIDATION_FAILED, errors);
 		return handleExceptionInternal(ex, body, headers, status, request);
 	}
 
@@ -61,11 +62,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 	private static String messageFor(HttpStatusCode statusCode) {
 		return switch (statusCode.value()) {
-			case 400 -> "La solicitud no es válida";
-			case 404 -> "El recurso solicitado no existe";
-			case 405 -> "Método HTTP no permitido";
-			case 415 -> "Tipo de contenido no soportado";
-			default -> "Error al procesar la solicitud";
+			case 400 -> ApiMessages.BAD_REQUEST;
+			case 404 -> ApiMessages.RESOURCE_NOT_FOUND;
+			case 405 -> ApiMessages.METHOD_NOT_ALLOWED;
+			case 415 -> ApiMessages.UNSUPPORTED_MEDIA_TYPE;
+			default -> ApiMessages.REQUEST_ERROR;
 		};
 	}
 
